@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="vitals">
+  <title>Planejamento Familiar na UBS — Cuidar de Você é Nosso Dever</title>
+
+  <!-- Google Fonts: Atkinson Hyperlegible & Figtree -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Figtree:wght@300..900&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@1.43.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces */
+      --background: #ffffff;
+      --surface-container-low: #f1f7f8;
+      --surface-container: #e3f1f3;
+      --surface-container-high: #d5e9ec;
+
+      /* Text */
+      --on-surface: #1b2b33;
+      --on-surface-variant: #46585f;
+
+      /* Rules */
+      --outline: #7b9198;
+      --outline-variant: #d5e3e5;
+
+      /* Accents */
+      --primary: #0f7c8a;
+      --on-primary: #ffffff;
+      --primary-container: #e3f1f3;
+      --on-primary-container: #0a5560;
+      --secondary: #1d5e3a;
+      --tertiary: #2e7d4f;
+      --error: #b3261e;
+      --on-error: #ffffff;
+
+      /* Data series & statuses */
+      --data-1: #0f7c8a;
+      --data-2: #2e7d4f;
+      --data-3: #b86e00;
+      --data-4: #5c5fb0;
+      --data-context: #b8c7ca;
+
+      /* Fonts */
+      --font-headline: 'Figtree', sans-serif;
+      --font-body: 'Atkinson Hyperlegible', sans-serif;
+      --font-label: 'Figtree', sans-serif;
+
+      /* Shape */
+      --rounded: 0.625rem;
+      --rounded-lg: 0.875rem;
+      --rounded-full: 9999px;
+
+      /* Style effects */
+      --top-bar: 6px solid var(--primary);
+      --status-bar-width: 4px;
+      --card-border: 1px solid var(--outline-variant);
+      --card-lift: 0 1px 2px rgb(27 43 51 / 0.05), 0 6px 16px rgb(27 43 51 / 0.05);
+
+      /* Shared semantic tokens */
+      --positive: var(--tertiary);
+      --warning: var(--data-3);
+      --focus: var(--primary);
+
+      /* Narrative Typography Scale */
+      --display-size: clamp(2.1rem, 1.4rem + 2.5vw, 3.4rem);
+      --headline-size: clamp(1.4rem, 1.15rem + 1.2vw, 2.1rem);
+      --subhead-size: clamp(1.1rem, 1rem + 0.4vw, 1.35rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
+
+      /* Spacing scale */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      position: static !important;
+    }
+
+    .page {
+      border-top: var(--top-bar);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-grid {
+      display: grid;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
+      max-width: 1080px;
+      margin: 0 auto;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .page-grid * {
+      min-width: 0;
+    }
+
+    /* Typography & Hierarchy */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+    }
+
+    .display-title {
+      font-size: var(--display-size);
+      line-height: 1.08;
+    }
+
+    .section-title {
+      font-size: var(--headline-size);
+      margin-bottom: var(--space-xs);
+    }
+
+    .card-title {
+      font-size: var(--subhead-size);
+      font-weight: 700;
+    }
+
+    .lede {
+      font-size: 1.12em;
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+      margin-top: var(--space-sm);
+    }
+
+    p {
+      margin: 0 0 var(--space-sm) 0;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Top Community Banner */
+    .top-community-bar {
+      background-color: var(--surface-container-low);
+      border-bottom: 1px solid var(--outline-variant);
+      padding: var(--space-sm) var(--space-lg);
+    }
+
+    .top-community-content {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .sus-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .sus-badge-pill {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--rounded);
+      font-size: 0.75rem;
+    }
+
+    .font-size-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .font-btn {
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      padding: var(--space-xs) var(--space-sm);
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--on-surface);
+      cursor: pointer;
+      min-height: 44px;
+      min-width: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .font-btn:hover {
+      background-color: var(--surface-container);
+      border-color: var(--outline);
+    }
+
+    .font-btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .font-btn.active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Chips */
+    .chip {
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: var(--label-size);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      background: color-mix(in srgb, var(--tertiary) 14%, var(--background));
+      color: var(--secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      line-height: 1.2;
+    }
+
+    .chip[data-status="info"] {
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+
+    .chip[data-status="alert"] {
+      background: color-mix(in srgb, var(--error) 10%, var(--background));
+      color: var(--error);
+    }
+
+    .chip[data-status="warning"] {
+      background: color-mix(in srgb, var(--data-3) 14%, var(--background));
+      color: var(--on-surface);
+      border: 1px solid color-mix(in srgb, var(--data-3) 30%, var(--background));
+    }
+
+    /* Cards & Status Bars */
+    .status-card {
+      background: var(--background);
+      border: var(--card-border);
+      border-left: var(--status-bar-width) solid var(--primary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      box-shadow: var(--card-lift);
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .status-card[data-status="ok"] {
+      border-left-color: var(--tertiary);
+    }
+
+    .status-card[data-status="alert"] {
+      border-left-color: var(--error);
+    }
+
+    .status-card[data-status="warning"] {
+      border-left-color: var(--data-3);
+    }
+
+    /* Buttons */
+    .btn {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.75rem var(--space-lg);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-sm);
+      text-decoration: none;
+      min-height: 48px;
+      border: none;
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--on-primary-container);
+    }
+
+    .btn-secondary {
+      background-color: var(--background);
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--surface-container);
+    }
+
+    .btn-outline-white {
+      background-color: transparent;
+      color: var(--on-primary);
+      border: 2px solid var(--on-primary);
+    }
+
+    .btn-outline-white:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Quick Jump Anchor Nav */
+    .quick-jump-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    .jump-pill {
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 0.6rem var(--space-md);
+      border-radius: var(--rounded-full);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      cursor: pointer;
+      min-height: 44px;
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .jump-pill:hover {
+      background-color: var(--surface-container);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .jump-pill:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    /* Hero Section */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--surface-container-low) 0%, var(--surface-container) 100%);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl) var(--space-lg);
+      position: relative;
+    }
+
+    .hero-chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .highlight-item {
+      background: var(--background);
+      border-radius: var(--rounded);
+      border: var(--card-border);
+      border-left: var(--status-bar-width) solid var(--tertiary);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+
+    .highlight-icon-title {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      color: var(--on-surface);
+    }
+
+    .highlight-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--rounded);
+      background-color: var(--surface-container);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Section Headers */
+    .section-header-block {
+      border-bottom: 2px solid var(--surface-container);
+      padding-bottom: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .section-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Filters / Category Tabs */
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-lg);
+    }
+
+    .filter-btn {
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded-full);
+      padding: 0.65rem var(--space-lg);
+      font-family: var(--font-label);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      cursor: pointer;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+
+    .filter-btn:hover {
+      background-color: var(--surface-container-low);
+      border-color: var(--primary);
+    }
+
+    .filter-btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .filter-btn.active {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+
+    /* Methods Grid */
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: var(--space-lg);
+    }
+
+    .method-card {
+      background: var(--background);
+      border: var(--card-border);
+      border-left: var(--status-bar-width) solid var(--primary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+      position: relative;
+      box-shadow: var(--card-lift);
+      transition: transform var(--dur-short) var(--ease-out), box-shadow var(--dur-short) var(--ease-out);
+    }
+
+    .method-card[data-duration="longo"] {
+      border-left-color: var(--tertiary);
+    }
+
+    .method-card[data-duration="definitivo"] {
+      border-left-color: var(--data-4);
+    }
+
+    .method-card[data-duration="emergencia"] {
+      border-left-color: var(--data-3);
+    }
+
+    .method-header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    .method-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--rounded-lg);
+      background-color: var(--surface-container);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .method-title-wrap {
+      flex: 1;
+    }
+
+    .method-badge-row {
+      margin-top: var(--space-xs);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .method-summary-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .method-summary-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      font-size: 0.95rem;
+      color: var(--on-surface-variant);
+    }
+
+    .method-summary-item i {
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .method-how-box {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded);
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.92rem;
+      border: 1px solid var(--outline-variant);
+    }
+
+    .method-how-box strong {
+      color: var(--on-surface);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Dupla Proteção Showcase */
+    .dupla-box {
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    .dupla-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--space-lg);
+      margin-top: var(--space-lg);
+    }
+
+    .dupla-pillar {
+      background: var(--background);
+      border-radius: var(--rounded-lg);
+      border: var(--card-border);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .dupla-pillar.accent {
+      border-left: var(--status-bar-width) solid var(--tertiary);
+    }
+
+    .dupla-pillar-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .dupla-interactive-toggle {
+      margin-top: var(--space-xl);
+      background: var(--background);
+      border-radius: var(--rounded-lg);
+      border: 1px solid var(--outline-variant);
+      padding: var(--space-lg);
+    }
+
+    .toggle-options-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .dupla-result-display {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded);
+      border-left: var(--status-bar-width) solid var(--primary);
+      padding: var(--space-md) var(--space-lg);
+      transition: all var(--dur-short) var(--ease-out);
+    }
+
+    /* Interactive Matcher / Simulator Tool */
+    .matcher-card {
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl) var(--space-lg);
+      box-shadow: var(--card-lift);
+    }
+
+    .question-block {
+      margin-bottom: var(--space-xl);
+    }
+
+    .question-legend {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--on-surface);
+      margin-bottom: var(--space-sm);
+      display: block;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: var(--space-sm);
+    }
+
+    .option-btn {
+      background: var(--background);
+      border: 2px solid var(--outline-variant);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      min-height: 80px;
+      justify-content: center;
+      transition: border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .option-btn:hover {
+      border-color: var(--primary);
+      background-color: var(--surface-container-low);
+    }
+
+    .option-btn:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background-color: var(--surface-container);
+    }
+
+    .option-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xs);
+    }
+
+    .option-desc {
+      font-size: 0.9rem;
+      color: var(--on-surface-variant);
+    }
+
+    .matcher-result-area {
+      display: none;
+      margin-top: var(--space-xl);
+      background: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      border-left: var(--status-bar-width) solid var(--tertiary);
+      border-top: 1px solid var(--outline-variant);
+      border-right: 1px solid var(--outline-variant);
+      border-bottom: 1px solid var(--outline-variant);
+      padding: var(--space-lg);
+      animation: fadeIn 300ms var(--ease-out);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Checklist & UBS Steps */
+    .steps-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .step-card {
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      position: relative;
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--rounded-full);
+      background-color: var(--primary);
+      color: var(--on-primary);
+      font-family: var(--font-headline);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-xs);
+    }
+
+    .checklist-panel {
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      margin-top: var(--space-md);
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--outline-variant);
+      cursor: pointer;
+    }
+
+    .checklist-item:last-child {
+      border-bottom: none;
+    }
+
+    .custom-checkbox {
+      width: 26px;
+      height: 26px;
+      border: 2px solid var(--primary);
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+      background: var(--background);
+      transition: background-color var(--dur-micro) var(--ease-out);
+    }
+
+    .custom-checkbox.checked {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    .checklist-text {
+      flex: 1;
+    }
+
+    .checklist-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--on-surface);
+      display: block;
+    }
+
+    .checklist-desc {
+      font-size: 0.93rem;
+      color: var(--on-surface-variant);
+    }
+
+    /* FAQ / Mitos e Verdades */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .faq-item {
+      background: var(--background);
+      border: var(--card-border);
+      border-radius: var(--rounded-lg);
+      overflow: hidden;
+      transition: border-color var(--dur-micro) var(--ease-out);
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: var(--space-md) var(--space-lg);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      color: var(--on-surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      cursor: pointer;
+      min-height: 52px;
+    }
+
+    .faq-question:hover {
+      background-color: var(--surface-container-low);
+    }
+
+    .faq-question:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: -2px;
+    }
+
+    .faq-icon-arrow {
+      transition: transform var(--dur-short) var(--ease-out);
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-icon-arrow {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 var(--space-lg) var(--space-lg) var(--space-lg);
+      font-size: 1rem;
+      color: var(--on-surface-variant);
+      line-height: 1.6;
+      border-top: 1px solid var(--outline-variant);
+      padding-top: var(--space-md);
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* Callout & Footer */
+    .callout-box {
+      background-color: var(--primary-container);
+      border-radius: var(--rounded-lg);
+      border-left: var(--status-bar-width) solid var(--primary);
+      padding: var(--space-lg);
+      color: var(--on-primary-container);
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-md);
+    }
+
+    .footer {
+      background-color: var(--surface-container-low);
+      border-top: 1px solid var(--outline-variant);
+      padding: var(--space-2xl) var(--space-lg);
+      margin-top: var(--space-3xl);
+    }
+
+    .footer-content {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .footer-disque {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-md);
+      background: var(--background);
+      border: 1px solid var(--outline-variant);
+      border-left: var(--status-bar-width) solid var(--tertiary);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      max-width: fit-content;
+    }
+
+    .footer-disque-number {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--secondary);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 640px) {
+      .page-grid {
+        padding: var(--space-md);
+        gap: var(--space-lg);
+      }
+      .hero-banner {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .dupla-box {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .matcher-card {
+        padding: var(--space-lg) var(--space-md);
+      }
+      .top-community-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* Accessibility Text Resizing */
+    body.text-large {
+      font-size: 1.25rem;
+    }
+    body.text-xlarge {
+      font-size: 1.4rem;
+    }
+
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Top Access Bar -->
+    <header class="top-community-bar">
+      <div class="top-community-content">
+        <div class="sus-badge">
+          <span class="sus-badge-pill">SUS</span>
+          <span>Unidade Básica de Saúde (Postinho)</span>
+        </div>
+        <div class="font-size-controls" aria-label="Ajuste do tamanho do texto">
+          <span style="font-size: var(--label-size); font-weight: 600; color: var(--on-surface-variant); margin-right: var(--space-xs);">Tamanho do texto:</span>
+          <button type="button" class="font-btn active" id="btn-text-normal" onclick="setTextSize('normal')" aria-label="Tamanho normal">Normal</button>
+          <button type="button" class="font-btn" id="btn-text-large" onclick="setTextSize('large')" aria-label="Tamanho maior">Grande</button>
+          <button type="button" class="font-btn" id="btn-text-xlarge" onclick="setTextSize('xlarge')" aria-label="Tamanho extra grande">Extra</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-grid">
+      <!-- HERO: Apresentação Acolhedora -->
+      <section class="hero-banner" aria-labelledby="hero-title">
+        <div class="hero-chips-row">
+          <span class="chip" data-status="info"><i data-lucide="check-circle" aria-hidden="true"></i> 100% Gratuito no SUS</span>
+          <span class="chip"><i data-lucide="lock" aria-hidden="true"></i> Atendimento com Total Sigilo</span>
+          <span class="chip" data-status="info"><i data-lucide="heart" aria-hidden="true"></i> Direito de Todas as Pessoas</span>
+        </div>
+
+        <h1 id="hero-title" class="display-title">Planejar sua família é um direito seu</h1>
+        <p class="lede">
+          Você tem a liberdade de decidir se quer ter filhos, quando quer ter e quantos quer ter. 
+          No postinho de saúde da sua comunidade, você recebe acolhimento, orientação sem julgamentos e todos os métodos de graça.
+        </p>
+
+        <!-- Quick Jump Navigation -->
+        <nav class="quick-jump-bar" aria-label="Atalhos rápidos para navegação na página">
+          <a href="#metodos" class="jump-pill"><i data-lucide="package" aria-hidden="true"></i> Ver Métodos Gratuitos</a>
+          <a href="#dupla-protecao" class="jump-pill"><i data-lucide="shield-check" aria-hidden="true"></i> A Dupla Proteção</a>
+          <a href="#simulador" class="jump-pill"><i data-lucide="sparkles" aria-hidden="true"></i> Qual Combina Comigo?</a>
+          <a href="#como-conseguir" class="jump-pill"><i data-lucide="map-pin" aria-hidden="true"></i> Como Pegar no Postinho</a>
+        </nav>
+
+        <!-- 3 Destaques Fundamentais -->
+        <div class="hero-highlights-grid">
+          <div class="highlight-item">
+            <div class="highlight-icon-title">
+              <div class="highlight-icon-box"><i data-lucide="wallet" aria-hidden="true"></i></div>
+              <span>Não custa nada</span>
+            </div>
+            <p>Remédios, camisinhas, exames e até cirurgias são pagos pelo SUS. Você não gasta nem um centavo.</p>
+          </div>
+
+          <div class="highlight-item">
+            <div class="highlight-icon-title">
+              <div class="highlight-icon-box"><i data-lucide="user-check" aria-hidden="true"></i></div>
+              <span>A escolha é sua</span>
+            </div>
+            <p>Ninguém pode te obrigar a usar nada. O profissional de saúde explica e quem decide o método é você.</p>
+          </div>
+
+          <div class="highlight-item">
+            <div class="highlight-icon-title">
+              <div class="highlight-icon-box"><i data-lucide="shield" aria-hidden="true"></i></div>
+              <span>Segredo garantido</span>
+            </div>
+            <p>Sua conversa com a equipe médica ou de enfermagem é particular e protegida pela lei.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 1: MÉTODOS GRATUITOS NA UBS -->
+      <section id="metodos" aria-labelledby="metodos-title">
+        <div class="section-header-block">
+          <span class="section-kicker">Catálogo Prático</span>
+          <h2 id="metodos-title" class="section-title">Métodos anticoncepcionais gratuitos no postinho</h2>
+          <p class="lede">
+            Conheça as opções disponíveis pelo SUS. Todas são seguras e explicadas de forma simples.
+          </p>
+        </div>
+
+        <!-- Filtros Rápidos por Categoria -->
+        <div class="filter-container" role="group" aria-label="Filtrar tipos de métodos">
+          <button type="button" class="filter-btn active" id="filter-todos" onclick="filterMethods('todos')">
+            <i data-lucide="layers" aria-hidden="true"></i> Todos os Métodos (8)
+          </button>
+          <button type="button" class="filter-btn" id="filter-simples" onclick="filterMethods('simples')">
+            <i data-lucide="clock" aria-hidden="true"></i> Do dia a dia
+          </button>
+          <button type="button" class="filter-btn" id="filter-longo" onclick="filterMethods('longo')">
+            <i data-lucide="calendar" aria-hidden="true"></i> Dura Meses ou Anos
+          </button>
+          <button type="button" class="filter-btn" id="filter-definitivo" onclick="filterMethods('definitivo')">
+            <i data-lucide="check" aria-hidden="true"></i> Cirurgias Definitivas
+          </button>
+          <button type="button" class="filter-btn" id="filter-emergencia" onclick="filterMethods('emergencia')">
+            <i data-lucide="alert-triangle" aria-hidden="true"></i> Emergência
+          </button>
+        </div>
+
+        <!-- Grid de Cartões dos Métodos -->
+        <div class="methods-grid" id="methods-cards-container">
+          <!-- 1. Camisinha -->
+          <article class="method-card" data-category="simples" data-duration="simples">
+            <div class="method-header">
+              <div class="method-icon-wrap"><i data-lucide="shield" aria-hidden="true"></i></div>
+              <div class="method-title-wrap">
+                <h3 class="card-title">Camisinha (Masculina e Feminina)</h3>
+                <div class="method-badge-row">
+                  <span class="chip"><i data-lucide="check" aria-hidden="true"></i> O mais importante</span>
+                  <span class="chip" data-status="info">Usa na hora</span>
+                </div>
+              </div>
+            </div>
+            <ul class="method-summary-list">
+              <li class="method-summary-item">
+                <i data-lucide="check-circle" aria-hidden="true"></i>
+                <span><strong>O que faz:</strong> É o único método que evita a gravidez e também protege contra doenças transmitidas pelo sexo.</span>
+              </li>
+              <li class="method-summary-item">
+                <i data-lucide="smile" aria-hidden="true"></i>
+                <span><strong>Vantagem:</strong> Não usa hormônios no corpo e você usa apenas no momento da relação.</span>
+              </li>
+            </ul>
+            <div class="method-how-box">
+              <strong>Como pegar na UBS:</strong>
+              Fica disponível na entrada ou na recepção do postinho. Você pode pegar quantas quiser, de graça, sem precisar de consulta ou receita médica!
+            </div>
+          </article>
+
+          <!-- 2. Pílula Anticoncepcional -->
+          <article class="method-card" data-category="simples" data-duration="simples">
+            <div class="method-header">
+              <div class="method-icon-wrap"><i data-lucide="pill" aria-hidden="true"></i></div>
+              <div class="method-title-wrap">
+                <h3 class="card-title">Pílula Anticoncepcional</h3>
+                <div class="method-badge-row">
+                  <span class="chip" data-status="info">Toma todo dia</span>
+                  <span class="chip">Muito comum</span>
+                </div>
+              </div>
+            </div>
+            <ul class="method-summary-list">
+              <li class="method-summary-item">
+                <i data-lucide="check-circle" aria-hidden="true"></i>
+                <span><strong>Como funciona:</strong> É um comprimido que a mulher toma todo santo dia, de preferência sempre no mesmo horário.</span>
+              </li>
+              <li class="method-summary-item">
+                <i data-lucide="alert-circle" aria-hidden="true"></i>
+                <span><strong>Atenção:</strong> Se esquecer de tomar, a proteção diminui. É ótimo para quem tem boa memória e rotina certinha.</span>
+              </li>
+            </ul>
+            <div class="method-how-box">
+              <strong>Como pegar na UBS:</strong>
+              Converse com a enfermeira ou médico no postinho. Eles passam a receita e você retira a cartela na farmácia da UBS todo mês.
+            </div>
+          </article>
+
+          <!-- 3. Injeção Anticoncepcional -->
+          <article class="method-card" data-category="longo" data-duration="longo">
+            <div class="method-header">
+              <div class="method-icon-wrap"><i data-lucide="syringe" aria-hidden="true"></i></div>
+              <div class="method-title-wrap">
+                <h3 class="card-title">Injeção Anticoncepcional</h3>
+                <div class="method-badge-row">
+                  <span class="chip" data-status="info">1 mês ou 3 meses</span>
+                  <span class="chip">Prático</span>
+                </div>
+              </div>
+            </div>
+            <ul class="method-summary-list">
+              <li class="method-summary-item">
+                <i data-lucide="check-circle" aria-hidden="true"></i>
+                <span><strong>Como funciona:</strong> Uma picadinha rápida aplicada no bumbum ou no braço que libera a proteção aos poucos.</span>
+              </li>
+              <li class="method-summary-item">
+                <i data-lucide="smile" aria-hidden="true"></i>
+                <span><strong>Vantagem:</strong> Você não precisa lembrar de tomar comprimido todo dia. Só toma outra quando der o prazo (mensal ou trimestral).</span>
+              </li>
+            </ul>
+            <div class="method-how-box">
+              <strong>Como pegar na UBS:</strong>
+              Após a consulta, a aplicação é feita pela própria equipe de enfermagem da sua UBS no dia marcado.
+            </div>
+          </article>
+
+          <!-- 4. DIU de Cobre -->
+          <article class="method-card" data-category="longo" data-duration="longo">
+            <div class="method-header">
+              <div class="method-icon-wrap"><i data-lucide="anchor" aria-hidden="true"></i></div>
+              <div class="method-title-wrap">
+                <h3 class="card-title">DIU de Cobre</h3>
+                <div class="method-badge-row">
+                  <span class="chip">Dura até 10 anos</span>
+                  <span class="chip" data-status="info">Sem hormônios</span>
+                </div>
+              </div>
+            </div>
+            <ul class="method-summary-list">
+              <li class="method-summary-item">
+                <i data-lucide="check-circle" aria-hidden="true"></i>
+                <span><strong>Como funciona:</strong> Um pequeno tubinho macio em formato de "T" colocado dentro do útero pelo profissional de saúde.</span>
+              </li>
+              <li class="method-summary-item">
+                <i data-lucide="smile" aria-hidden="true"></i>
+                <span><strong>Vantagem:</strong> Você coloca e não precisa esquentar a cabeça por até 10 anos! Se quiser engravidar antes, é só ir ao posto e retirar.</span>
+              </li>
+            </ul>
+            <div class="method-how-box">
+              <strong>Como colocar na UBS:</strong>
+              Procure o acolhimento da UBS. A equipe faz os exames rápidos e agenda a colocação, sem fila de espera desnecessária.
+            </div>
+          </article>
+
+          <!-- 5. Implante Contraceptivo -->
+          <article class="method-card" data-category="longo" data-duration="longo">
+            <div class="method-header">
+              <div class="method-icon-wrap"><i data-lucide="activity" aria-hidden="true"></i></div>
+              <div class="method-title-wrap">
+                <h3 class="card-title">Implante no Braço</h3>
+                <div class="method-badge-row">
+                  <span class="chip">Dura até 3 anos</span>
+                  <span class="chip" data-status="info">Debaixo da pele</span>
+                </div>
+              </div>
+            </div>
+            <ul class="method-summary-list">
+              <li class="method-summary-item">
+                <i data-lucide="check-circle" aria-hidden="true"></i>
+                <span><strong>Como funciona:</strong> Um pequeno bastãozinho do tamanho de um palito de fósforo colocado debaixo da pele do braço com anestesia local.</span>
+              </li>
+              <li class="method-summary-item">
+                <i data-lucide="smile" aria-hidden="true"></i>
+                <span><strong>Vantagem:</strong> Muito seguro e prático. Dura até 3 anos e pode ser retirado a qualquer momento se desejar.</span>
+              </li>
+            </ul>
+            <div class="method-how-box">
+              <strong>Disponibilidade na UBS:</strong>
+              Ofertado no SUS de acordo com a programação e público prioritário do seu município. Pergunte na sua UBS!
+            </div>
+          </article>
+
+          <!-- 6. Pílula do Dia Seguinte -->
+          <article class="method-card" data-category="emergencia" data-duration="emergencia">
+            <div class="method-header">
+              <div class="method-icon-wrap"><i data-lucide="alert-triangle" aria-hidden="true"></i></div>
+              <div class="method-title-wrap">
+                <h3 class="card-title">Pílula do Dia Seguinte</h3>
+                <div class="method-badge-row">
+                  <span class="chip" data-status="warning">Urgência / Socorro</span>
+                  <span class="chip" data-status="info">Até 72 horas</span>
+                </div>
+              </div>
+            </div>
+            <ul class="method-summary-list">
+              <li class="method-summary-item">
+                <i data-lucide="check-circle" aria-hidden="true"></i>
+                <span><strong>Quando usar:</strong> Apenas em imprevistos: a camisinha furou, escapou ou houve relação desprotegida.</span>
+              </li>
+              <li class="method-summary-item">
+                <i data-lucide="alert-circle" aria-hidden="true"></i>
+                <span><strong>Como tomar:</strong> Deve ser tomada o mais rápido possível, em até no máximo 3 dias (72 horas) após a relação. Não serve para tomar todo mês.</span>
+              </li>
+            </ul>
+            <div class="method-how-box">
+              <strong>Como pegar na UBS:</strong>
+              Vá direto à UBS. A entrega na farmácia do postinho é imediata e sem burocracia para você não perder tempo.
+            </div>
+          </article>
+
+          <!-- 7. Laqueadura Tubária -->
+          <article class="method-card" data-category="definitivo" data-duration="definitivo">
+            <div class="method-header">
+              <div class="method-icon-wrap"><i data-lucide="user" aria-hidden="true"></i></div>
+              <div class="method-title-wrap">
+                <h3 class="card-title">Laqueadura (Mulheres)</h3>
+                <div class="method-badge-row">
+                  <span class="chip">Cirurgia definitiva</span>
+                  <span class="chip" data-status="info">Não quer mais filhos</span>
+                </div>
+              </div>
+            </div>
+            <ul class="method-summary-list">
+              <li class="method-summary-item">
+                <i data-lucide="check-circle" aria-hidden="true"></i>
+                <span><strong>Como funciona:</strong> Cirurgia segura que amarra ou fecha o caminho das trompas no corpo da mulher para nunca mais engravidar.</span>
+              </li>
+              <li class="method-summary-item">
+                <i data-lucide="info" aria-hidden="true"></i>
+                <span><strong>Importante:</strong> Pela nova lei brasileira, qualquer pessoa com 21 anos ou mais (ou com pelo menos 2 filhos vivos) pode pedir. Não precisa de autorização de parceiro!</span>
+              </li>
+            </ul>
+            <div class="method-how-box">
+              <strong>Como fazer pelo SUS:</strong>
+              Manifeste o desejo no atendimento da UBS. Você passa pelas conversas de orientação e faz todos os exames antes do procedimento.
+            </div>
+          </article>
+
+          <!-- 8. Vasectomia -->
+          <article class="method-card" data-category="definitivo" data-duration="definitivo">
+            <div class="method-header">
+              <div class="method-icon-wrap"><i data-lucide="user-check" aria-hidden="true"></i></div>
+              <div class="method-title-wrap">
+                <h3 class="card-title">Vasectomia (Homens)</h3>
+                <div class="method-badge-row">
+                  <span class="chip">Cirurgia rápida</span>
+                  <span class="chip" data-status="info">20 minutos</span>
+                </div>
+              </div>
+            </div>
+            <ul class="method-summary-list">
+              <li class="method-summary-item">
+                <i data-lucide="check-circle" aria-hidden="true"></i>
+                <span><strong>Como funciona:</strong> Um pequeno corte com anestesia local que impede a saída dos espermatozoides. O homem volta para casa no mesmo dia.</span>
+              </li>
+              <li class="method-summary-item">
+                <i data-lucide="smile" aria-hidden="true"></i>
+                <span><strong>Mito derrubado:</strong> Não afeta em nada a ereção, o prazer, nem a masculinidade. Tudo funciona perfeitamente normal!</span>
+              </li>
+            </ul>
+            <div class="method-how-box">
+              <strong>Como fazer pelo SUS:</strong>
+              O homem procura a UBS, conversa com a equipe, faz os exames simples e agenda o procedimento no hospital ou ambulatório de referência.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 2: DUPLA PROTEÇÃO (O PAR PERFEITO) -->
+      <section id="dupla-protecao" class="dupla-box" aria-labelledby="dupla-title">
+        <div class="section-header-block" style="border-bottom-color: var(--outline-variant);">
+          <span class="section-kicker">Regra de Ouro da Saúde</span>
+          <h2 id="dupla-title" class="section-title">A Dupla Proteção: O Par Perfeito</h2>
+          <p class="lede">
+            Você sabia que nenhum remédio ou DIU protege contra as doenças do sexo? 
+            É por isso que a camisinha deve ser usada junto com qualquer outro método.
+          </p>
+        </div>
+
+        <div class="dupla-grid">
+          <div class="dupla-pillar accent">
+            <div class="dupla-pillar-header" style="color: var(--secondary);">
+              <i data-lucide="shield" aria-hidden="true"></i>
+              <span>1º Escudo: A Camisinha</span>
+            </div>
+            <p><strong>Missão principal:</strong> Proteger sua vida contra ISTs (como Sífilis, HIV, Hepatite e HPV) e também evitar a gravidez.</p>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">É o único método do mundo que cuida da sua saúde contra infecções.</p>
+          </div>
+
+          <div class="dupla-pillar accent">
+            <div class="dupla-pillar-header" style="color: var(--primary);">
+              <i data-lucide="heart-pulse" aria-hidden="true"></i>
+              <span>2º Escudo: Seu Método Extra</span>
+            </div>
+            <p><strong>Missão principal:</strong> Garantir que você não engravide mesmo se acontecer algum imprevisto na hora.</p>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">Pode ser o DIU, a injeção ou a pílula diária, conforme sua preferência.</p>
+          </div>
+        </div>
+
+        <!-- Demonstração Interativa do Par Perfeito -->
+        <div class="dupla-interactive-toggle">
+          <h3 class="card-title" style="margin-bottom: var(--space-xs);">Faça o teste visual: Veja a diferença na prática</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+            Toque nos botões abaixo para ver o que acontece com a sua proteção:
+          </p>
+
+          <div class="toggle-options-row" role="group" aria-label="Escolher cenário de proteção">
+            <button type="button" class="font-btn active" id="btn-scene-dupla" onclick="setScene('dupla')">
+              <i data-lucide="shield-check" aria-hidden="true"></i> Camisinha + Outro Método
+            </button>
+            <button type="button" class="font-btn" id="btn-scene-remedio" onclick="setScene('remedio')">
+              <i data-lucide="pill" aria-hidden="true"></i> Apenas Pílula ou DIU (Sem camisinha)
+            </button>
+            <button type="button" class="font-btn" id="btn-scene-nada" onclick="setScene('nada')">
+              <i data-lucide="alert-circle" aria-hidden="true"></i> Sem nenhum método
+            </button>
+          </div>
+
+          <div class="dupla-result-display" id="dupla-result-box">
+            <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xs);">
+              <span class="chip" id="dupla-status-chip"><i data-lucide="check" aria-hidden="true"></i> Proteção Nota 10</span>
+              <strong id="dupla-result-title" style="font-size: 1.15rem; color: var(--on-surface);">Tranquilidade Total!</strong>
+            </div>
+            <p id="dupla-result-text" style="color: var(--on-surface-variant); font-size: 1rem; margin: 0;">
+              Com a Dupla Proteção, você fica 100% livre de preocupação com gravidez indesejada e totalmente protegido contra infecções sexuais. É a combinação mais inteligente e saudável!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 3: FERRAMENTA INTERATIVA "QUAL COMBINA MAIS COM VOCÊ?" -->
+      <section id="simulador" aria-labelledby="simulador-title">
+        <div class="section-header-block">
+          <span class="section-kicker">Guia Rápido de Escolha</span>
+          <h2 id="simulador-title" class="section-title">Qual método combina mais com o seu dia a dia?</h2>
+          <p class="lede">
+            Responda 3 perguntinhas bem simples para ver sugestões sob medida para conversar no postinho.
+          </p>
+        </div>
+
+        <div class="matcher-card">
+          <!-- Pergunta 1 -->
+          <div class="question-block">
+            <span class="question-legend">1. Você pensa em ter filhos ou mais filhos no futuro?</span>
+            <div class="options-grid">
+              <button type="button" class="option-btn" id="q1-opt1" onclick="selectQuiz(1, 'logo', this)">
+                <span class="option-title"><i data-lucide="baby" aria-hidden="true"></i> Sim, logo</span>
+                <span class="option-desc">Nos próximos meses ou anos</span>
+              </button>
+              <button type="button" class="option-btn" id="q1-opt2" onclick="selectQuiz(1, 'depois', this)">
+                <span class="option-title"><i data-lucide="clock" aria-hidden="true"></i> Quero esperar muito</span>
+                <span class="option-desc">Não pretendo ter tão cedo</span>
+              </button>
+              <button type="button" class="option-btn" id="q1-opt3" onclick="selectQuiz(1, 'nunca', this)">
+                <span class="option-title"><i data-lucide="x-circle" aria-hidden="true"></i> Não quero mais</span>
+                <span class="option-desc">Tenho certeza que fechei a fábrica</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Pergunta 2 -->
+          <div class="question-block">
+            <span class="question-legend">2. Como é a sua memória para tomar remédio todo santo dia?</span>
+            <div class="options-grid">
+              <button type="button" class="option-btn" id="q2-opt1" onclick="selectQuiz(2, 'boa', this)">
+                <span class="option-title"><i data-lucide="check" aria-hidden="true"></i> É ótima</span>
+                <span class="option-desc">Lembro sempre no mesmo horário</span>
+              </button>
+              <button type="button" class="option-btn" id="q2-opt2" onclick="selectQuiz(2, 'esqueco', this)">
+                <span class="option-title"><i data-lucide="help-circle" aria-hidden="true"></i> Esqueço fácil</span>
+                <span class="option-desc">Rotina corrida ou horários loucos</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Pergunta 3 -->
+          <div class="question-block" style="margin-bottom: var(--space-lg);">
+            <span class="question-legend">3. Que tipo de método você prefere?</span>
+            <div class="options-grid">
+              <button type="button" class="option-btn" id="q3-opt1" onclick="selectQuiz(3, 'facil', this)">
+                <span class="option-title"><i data-lucide="hand" aria-hidden="true"></i> Muito simples de começar</span>
+                <span class="option-desc">Camisinha ou pílula</span>
+              </button>
+              <button type="button" class="option-btn" id="q3-opt2" onclick="selectQuiz(3, 'sem-pensar', this)">
+                <span class="option-title"><i data-lucide="shield" aria-hidden="true"></i> Não quero ter que pensar</span>
+                <span class="option-desc">Coloca e esquece por anos</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: var(--space-md); align-items: center; flex-wrap: wrap;">
+            <button type="button" class="btn btn-primary" onclick="generateRecommendation()">
+              <i data-lucide="sparkles" aria-hidden="true"></i> Ver Sugestões para Mim
+            </button>
+            <span style="font-size: 0.9rem; color: var(--on-surface-variant);">Toque no botão após escolher as opções acima.</span>
+          </div>
+          <div id="quiz-error-msg" style="display: none; margin-top: var(--space-sm); color: var(--error); font-weight: 700; font-size: 0.95rem;">
+            <i data-lucide="alert-circle" aria-hidden="true" style="vertical-align: middle;"></i> Por favor, escolha uma opção para cada uma das 3 perguntas acima antes de ver o resultado.
+          </div>
+
+          <!-- Resultado do Quiz -->
+          <div id="matcher-result" class="matcher-result-area" aria-live="polite">
+            <div style="display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-sm);">
+              <span class="chip"><i data-lucide="check-circle" aria-hidden="true"></i> Boas Opções para Você</span>
+              <strong id="result-headline" style="font-size: 1.2rem; color: var(--on-surface);">Aqui estão as melhores opções:</strong>
+            </div>
+            <div id="result-suggestions-list" style="margin-top: var(--space-sm); font-size: 1.05rem; color: var(--on-surface);">
+              <!-- Inserido dinamicamente via JS -->
+            </div>
+            <div style="margin-top: var(--space-md); padding-top: var(--space-sm); border-top: 1px solid var(--outline-variant); font-size: 0.93rem; color: var(--on-surface-variant);">
+              <i data-lucide="info" aria-hidden="true" style="vertical-align: middle; margin-right: 4px;"></i>
+              <strong>Lembre-se sempre:</strong> Isso é apenas uma orientação amiga. A decisão final é 100% sua, conversando com o profissional na sala de atendimento da UBS!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 4: COMO CONSEGUIR ATENDIMENTO NA UBS -->
+      <section id="como-conseguir" aria-labelledby="como-title">
+        <div class="section-header-block">
+          <span class="section-kicker">Passo a Passo Descomplicado</span>
+          <h2 id="como-title" class="section-title">Como conseguir seu atendimento no postinho</h2>
+          <p class="lede">
+            Você não precisa ter medo nem vergonha. A equipe da UBS está lá exatamente para te acolher com carinho e respeito.
+          </p>
+        </div>
+
+        <!-- 4 Passos Fáceis -->
+        <div class="steps-list">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3 class="card-title">Vá até a UBS</h3>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">
+              Procure a Unidade Básica de Saúde mais perto da sua casa. Você pode ir no horário de funcionamento comum.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3 class="card-title">Peça o acolhimento</h3>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">
+              Chegue na recepção e diga: <em>"Gostaria de atendimento para planejamento familiar ou pegar anticoncepcional"</em>.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3 class="card-title">Converse com sigilo</h3>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">
+              Em uma sala reservada, a enfermeira ou médico tira todas as suas dúvidas. Tudo o que você falar fica em segredo.
+            </p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <h3 class="card-title">Saia protegida(o)</h3>
+            <p style="font-size: 0.95rem; color: var(--on-surface-variant);">
+              Você já sai com camisinha, pílula ou injeção feita na hora, ou com a data agendada para colocar o DIU ou fazer a cirurgia.
+            </p>
+          </div>
+        </div>
+
+        <!-- Checklist do que levar -->
+        <div class="checklist-panel">
+          <h3 class="card-title" style="margin-bottom: var(--space-xs); display: flex; align-items: center; gap: var(--space-sm);">
+            <i data-lucide="check-square" aria-hidden="true" style="color: var(--primary);"></i>
+            O que levar no bolso ou na bolsinha?
+          </h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant); margin-bottom: var(--space-md);">
+            Toque nos itens abaixo para conferir o que você já separou para levar ao postinho:
+          </p>
+
+          <div class="checklist-item" onclick="toggleChecklist('doc')">
+            <div class="custom-checkbox" id="check-doc" role="checkbox" aria-checked="false" tabindex="0">
+              <i data-lucide="check" aria-hidden="true" style="display: none; width: 18px; height: 18px;"></i>
+            </div>
+            <div class="checklist-text">
+              <span class="checklist-title">Documento com foto</span>
+              <span class="checklist-desc">Pode ser RG, CNH, carteira de trabalho ou até a certidão de nascimento.</span>
+            </div>
+          </div>
+
+          <div class="checklist-item" onclick="toggleChecklist('sus')">
+            <div class="custom-checkbox" id="check-sus" role="checkbox" aria-checked="false" tabindex="0">
+              <i data-lucide="check" aria-hidden="true" style="display: none; width: 18px; height: 18px;"></i>
+            </div>
+            <div class="checklist-text">
+              <span class="checklist-title">Cartão do SUS (se tiver)</span>
+              <span class="checklist-desc">Se você perdeu ou não tem, <strong>não se preocupe!</strong> O postinho faz um novo na hora, de graça.</span>
+            </div>
+          </div>
+
+          <div class="checklist-item" onclick="toggleChecklist('casa')">
+            <div class="custom-checkbox" id="check-casa" role="checkbox" aria-checked="false" tabindex="0">
+              <i data-lucide="check" aria-hidden="true" style="display: none; width: 18px; height: 18px;"></i>
+            </div>
+            <div class="checklist-text">
+              <span class="checklist-title">Comprovante de onde mora (se tiver)</span>
+              <span class="checklist-desc">Uma conta de água ou luz para saber qual posto atende a sua rua.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout-box" style="margin-top: var(--space-lg);">
+          <i data-lucide="shield-check" aria-hidden="true" style="width: 32px; height: 32px; flex-shrink: 0;"></i>
+          <div>
+            <strong style="display: block; font-size: 1.05rem; margin-bottom: 2px;">Adolescentes e Jovens: Vocês têm direito ao sigilo!</strong>
+            <p style="margin: 0; font-size: 0.95rem;">
+              Qualquer pessoa a partir da adolescência tem direito a receber atendimento em planejamento reprodutivo, pegar camisinhas e orientações <strong>sem precisar da presença dos pais</strong>. O sigilo da sua consulta é protegido pelo Estatuto da Criança e do Adolescente e pelo Conselho Federal de Medicina.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 5: MITOS E VERDADES (TIRA-DÚVIDAS POPULAR) -->
+      <section aria-labelledby="faq-title">
+        <div class="section-header-block">
+          <span class="section-kicker">Tira-Dúvidas Rápido</span>
+          <h2 id="faq-title" class="section-title">Perguntas comuns e mitos que o povo fala</h2>
+          <p class="lede">
+            Toque nas perguntas para ler respostas diretas e sinceras, sem rodeios.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <!-- Pergunta 1 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              <span>Mulher casada precisa de autorização do marido para colocar DIU ou fazer laqueadura?</span>
+              <i data-lucide="chevron-down" class="faq-icon-arrow" aria-hidden="true"></i>
+            </button>
+            <div class="faq-answer">
+              <p><strong>NÃO PRECISA!</strong> A lei mudou no Brasil (Lei nº 14.443/2022). O seu corpo é seu. Nenhuma mulher precisa de assinatura ou permissão do cônjuge para colocar DIU ou fazer cirurgia de laqueadura. O mesmo vale para o homem na vasectomia.</p>
+            </div>
+          </div>
+
+          <!-- Pergunta 2 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              <span>O DIU pode enferrujar ou sair do lugar e subir para o coração?</span>
+              <i data-lucide="chevron-down" class="faq-icon-arrow" aria-hidden="true"></i>
+            </button>
+            <div class="faq-answer">
+              <p><strong>MITO TOTAL!</strong> O DIU é feito de plástico medicinal com cobre puro, materiais que nunca enferrujam. Além disso, o útero é um órgão fechado: o DIU não tem como "passear" pelo corpo. É um método extremamente seguro usado por milhões de mulheres no mundo todo.</p>
+            </div>
+          </div>
+
+          <!-- Pergunta 3 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              <span>A vasectomia deixa o homem sem ereção ou "brocha"?</span>
+              <i data-lucide="chevron-down" class="faq-icon-arrow" aria-hidden="true"></i>
+            </button>
+            <div class="faq-answer">
+              <p><strong>NÃO MUDA NADA NA POTÊNCIA!</strong> A cirurgia apenas fecha o caninho minúsculo por onde passam os espermatozoides. Os nervos, a produção de hormônios masculinos, o tesão, a ereção e o líquido ejaculado continuam exatamente iguais. O homem continua tendo prazer normal.</p>
+            </div>
+          </div>
+
+          <!-- Pergunta 4 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              <span>A pílula do dia seguinte é a mesma coisa que fazer aborto?</span>
+              <i data-lucide="chevron-down" class="faq-icon-arrow" aria-hidden="true"></i>
+            </button>
+            <div class="faq-answer">
+              <p><strong>NÃO É ABORTO!</strong> A pílula de emergência impede que o óvulo seja liberado ou que o espermatozoide alcance o óvulo. Se a mulher já estiver grávida, a pílula não funciona e não interrompe a gravidez. Ela apenas evita que a gravidez chegue a acontecer.</p>
+            </div>
+          </div>
+
+          <!-- Pergunta 5 -->
+          <div class="faq-item">
+            <button type="button" class="faq-question" onclick="toggleFaq(this)" aria-expanded="false">
+              <span>Posso pegar camisinha no posto mesmo sem passar por consulta?</span>
+              <i data-lucide="chevron-down" class="faq-icon-arrow" aria-hidden="true"></i>
+            </button>
+            <div class="faq-answer">
+              <p><strong>SIM!</strong> Você não precisa de consulta, fila nem de dar explicações. A maioria das UBS deixa caixas ou dispensers com camisinhas masculinas e femininas logo na entrada ou perto da farmácia. É só chegar e pegar quantas precisar com toda a tranquilidade.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- RODAPÉ INFORMATIVO E CANAIS DO SUS -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div>
+          <h3 class="card-title" style="margin-bottom: var(--space-xs);">Planejamento Familiar é Saúde e Liberdade</h3>
+          <p style="font-size: 0.95rem; color: var(--on-surface-variant); max-width: 60ch;">
+            Conteúdo comunitário preparado com base nas diretrizes do Sistema Único de Saúde (SUS) e do Ministério da Saúde do Brasil para atendimento na Atenção Primária.
+          </p>
+        </div>
+
+        <div class="footer-disque">
+          <i data-lucide="phone-call" aria-hidden="true" style="width: 28px; height: 28px; color: var(--tertiary);"></i>
+          <div>
+            <div class="footer-disque-number">Disque Saúde 136</div>
+            <span style="font-size: 0.85rem; color: var(--on-surface-variant);">Ligação gratuita de qualquer telefone para tirar dúvidas ou fazer sugestões.</span>
+          </div>
+        </div>
+
+        <div style="font-size: 0.85rem; color: var(--on-surface-variant); border-top: 1px solid var(--outline-variant); padding-top: var(--space-md);">
+          Unidade Básica de Saúde • Cuidando do seu bem-estar, do seu tempo e dos seus direitos.
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <api-shim></api-shim>
+  <script>
+    // Inicializar ícones Lucide
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    });
+
+    // Controle de tamanho de texto para acessibilidade
+    function setTextSize(size) {
+      document.body.classList.remove('text-large', 'text-xlarge');
+      var btnNormal = document.getElementById('btn-text-normal');
+      var btnLarge = document.getElementById('btn-text-large');
+      var btnXLarge = document.getElementById('btn-text-xlarge');
+
+      if (btnNormal) btnNormal.classList.remove('active');
+      if (btnLarge) btnLarge.classList.remove('active');
+      if (btnXLarge) btnXLarge.classList.remove('active');
+
+      if (size === 'large') {
+        document.body.classList.add('text-large');
+        if (btnLarge) btnLarge.classList.add('active');
+      } else if (size === 'xlarge') {
+        document.body.classList.add('text-xlarge');
+        if (btnXLarge) btnXLarge.classList.add('active');
+      } else {
+        if (btnNormal) btnNormal.classList.add('active');
+      }
+    }
+
+    // Filtragem dos Métodos no Catálogo
+    function filterMethods(category) {
+      var buttons = document.querySelectorAll('.filter-btn');
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+      }
+
+      var activeBtn = document.getElementById('filter-' + category);
+      if (activeBtn) {
+        activeBtn.classList.add('active');
+      }
+
+      var cards = document.querySelectorAll('.method-card');
+      for (var j = 0; j < cards.length; j++) {
+        var card = cards[j];
+        if (category === 'todos') {
+          card.style.display = 'flex';
+        } else {
+          var cardCategory = card.getAttribute('data-category');
+          if (cardCategory === category) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      }
+    }
+
+    // Cenários da Dupla Proteção
+    function setScene(scene) {
+      var btnDupla = document.getElementById('btn-scene-dupla');
+      var btnRemedio = document.getElementById('btn-scene-remedio');
+      var btnNada = document.getElementById('btn-scene-nada');
+
+      if (btnDupla) btnDupla.classList.remove('active');
+      if (btnRemedio) btnRemedio.classList.remove('active');
+      if (btnNada) btnNada.classList.remove('active');
+
+      var box = document.getElementById('dupla-result-box');
+      var chip = document.getElementById('dupla-status-chip');
+      var title = document.getElementById('dupla-result-title');
+      var text = document.getElementById('dupla-result-text');
+
+      if (!box || !chip || !title || !text) return;
+
+      if (scene === 'dupla') {
+        if (btnDupla) btnDupla.classList.add('active');
+        box.style.borderLeftColor = 'var(--tertiary)';
+        chip.className = 'chip';
+        chip.setAttribute('data-status', 'ok');
+        chip.innerHTML = '<i data-lucide="check" aria-hidden="true"></i> Proteção Nota 10';
+        title.textContent = 'Tranquilidade Total!';
+        text.textContent = 'Com a Dupla Proteção (Camisinha + Pílula ou DIU), você fica livre de preocupação com gravidez indesejada e totalmente protegido contra infecções sexuais (ISTs). É a combinação perfeita!';
+      } else if (scene === 'remedio') {
+        if (btnRemedio) btnRemedio.classList.add('active');
+        box.style.borderLeftColor = 'var(--data-3)';
+        chip.className = 'chip';
+        chip.setAttribute('data-status', 'warning');
+        chip.innerHTML = '<i data-lucide="alert-triangle" aria-hidden="true"></i> Cuidado: Proteção Pela Metade';
+        title.textContent = 'Evita gravidez, mas NÃO protege contra doenças!';
+        text.textContent = 'Tomar remédio ou usar DIU impede de engravidar, mas você continua correndo risco de pegar Sífilis, HIV, Hepatite ou HPV se não usar camisinha. Use sempre camisinha junto!';
+      } else if (scene === 'nada') {
+        if (btnNada) btnNada.classList.add('active');
+        box.style.borderLeftColor = 'var(--error)';
+        chip.className = 'chip';
+        chip.setAttribute('data-status', 'alert');
+        chip.innerHTML = '<i data-lucide="alert-circle" aria-hidden="true"></i> Perigo Alto';
+        title.textContent = 'Risco total de gravidez e de infecções!';
+        text.textContent = 'Sem proteção nenhuma, o risco de engravidar sem querer e de pegar infecções é muito alto. Dê um pulo no postinho de saúde hoje mesmo para escolher o seu método de graça!';
+      }
+
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
+    // Questionário Simples (Qual combina comigo?)
+    var quizAnswers = {
+      q1: null,
+      q2: null,
+      q3: null
+    };
+
+    function selectQuiz(questionNum, answerKey, element) {
+      quizAnswers['q' + questionNum] = answerKey;
+      var parent = element.parentElement;
+      if (parent) {
+        var buttons = parent.querySelectorAll('.option-btn');
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].classList.remove('selected');
+        }
+      }
+      element.classList.add('selected');
+    }
+
+    function generateRecommendation() {
+      var resultBox = document.getElementById('matcher-result');
+      var list = document.getElementById('result-suggestions-list');
+      var headline = document.getElementById('result-headline');
+      var errorMsg = document.getElementById('quiz-error-msg');
+
+      if (!resultBox || !list || !headline) return;
+
+      if (!quizAnswers.q1 || !quizAnswers.q2 || !quizAnswers.q3) {
+        if (errorMsg) errorMsg.style.display = 'block';
+        return;
+      }
+      if (errorMsg) errorMsg.style.display = 'none';
+
+      var recs = [];
+
+      // Lógica direta e acessível
+      if (quizAnswers.q1 === 'nunca') {
+        recs.push('<strong>1. Laqueadura ou Vasectomia:</strong> Como você já tem certeza que não quer mais filhos, converse no postinho sobre as cirurgias gratuitas pelo SUS.');
+        recs.push('<strong>2. DIU de Cobre ou Implante:</strong> Ótima alternativa para quem quer segurança absoluta por vários anos sem precisar de cirurgia imediata.');
+      } else if (quizAnswers.q2 === 'esqueco' || quizAnswers.q3 === 'sem-pensar') {
+        recs.push('<strong>1. DIU de Cobre:</strong> Dura até 10 anos, não usa hormônios e você não precisa lembrar de nada no dia a dia.');
+        recs.push('<strong>2. Injeção Anticoncepcional (Trimestral ou Mensal):</strong> Uma aplicação que protege por semanas ou meses sem precisar de remédio diário.');
+      } else if (quizAnswers.q2 === 'boa' && quizAnswers.q3 === 'facil') {
+        recs.push('<strong>1. Pílula Anticoncepcional Diária:</strong> Funciona perfeitamente bem para a sua rotina organizada.');
+        recs.push('<strong>2. Injeção Mensal:</strong> Super prática, uma vez por mês na UBS.');
+      } else {
+        recs.push('<strong>1. DIU de Cobre:</strong> Alta eficácia e praticidade por até 10 anos.');
+        recs.push('<strong>2. Camisinha e Pílula:</strong> Combinação rápida que você retira de imediato na UBS.');
+      }
+
+      // Regra geral da dupla proteção
+      recs.push('<strong>Lembrete de Ouro:</strong> Em qualquer escolha, leve sempre a <strong>Camisinha</strong> para a Dupla Proteção!');
+
+      var html = '<ul style="padding-left: 20px; margin: 0; display: flex; flex-direction: column; gap: 8px;">';
+      for (var i = 0; i < recs.length; i++) {
+        html += '<li>' + recs[i] + '</li>';
+      }
+      html += '</ul>';
+
+      list.innerHTML = html;
+      resultBox.style.display = 'block';
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Checklist do que levar
+    var checklistState = {
+      doc: false,
+      sus: false,
+      casa: false
+    };
+
+    function toggleChecklist(itemKey) {
+      checklistState[itemKey] = !checklistState[itemKey];
+      var checkEl = document.getElementById('check-' + itemKey);
+      if (checkEl) {
+        if (checklistState[itemKey]) {
+          checkEl.classList.add('checked');
+          checkEl.setAttribute('aria-checked', 'true');
+          var icon = checkEl.querySelector('i');
+          if (icon) icon.style.display = 'block';
+        } else {
+          checkEl.classList.remove('checked');
+          checkEl.setAttribute('aria-checked', 'false');
+          var icon = checkEl.querySelector('i');
+          if (icon) icon.style.display = 'none';
+        }
+      }
+    }
+
+    // Acordeão FAQ / Mitos e Verdades
+    function toggleFaq(btn) {
+      var item = btn.parentElement;
+      if (!item) return;
+      var isOpen = item.classList.contains('open');
+
+      var allItems = document.querySelectorAll('.faq-item');
+      for (var i = 0; i < allItems.length; i++) {
+        allItems[i].classList.remove('open');
+        var b = allItems[i].querySelector('.faq-question');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      }
+
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+  </script>
+</body>
+</html>
